@@ -1,0 +1,4 @@
+---
+redis_server: no
+redis_server_accepts_external_connections: no
+redis_client: no

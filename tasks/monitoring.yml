@@ -1,0 +1,22 @@
+---
+- name: Upload Config | monit | redis-server
+  template:
+    src: etc/monit/conf.d/redis-server
+    dest: /etc/monit/conf.d/redis-server
+  notify: Reload Service | monit
+
+- name: Trigger All Callbacks
+  meta: flush_handlers
+
+- name: Configure | redis-server | pidfile
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *pidfile '
+    line: 'pidfile /var/run/redis/redis-server.pid'
+  notify: Reload Service | redis-server
+
+- name: Confirm Monitoring | redis-server
+  monit:
+    state: present
+    name: redis-server

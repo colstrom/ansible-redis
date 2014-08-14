@@ -1,0 +1,5 @@
+---
+- name: Service Started | redis-server
+  service:
+    state: started
+    name: redis-server

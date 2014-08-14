@@ -1,0 +1,88 @@
+---
+- name: Download Config | redis-server
+  get_url:
+    url: 'http://download.redis.io/redis-stable/redis.conf'
+    dest: /etc/redis/redis.conf
+  tags:
+    - assumes-trust
+    - configuration
+    - fetch-configuration
+    - redis
+
+- name: Configure | redis-server | daemonize
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *daemonize '
+    line: 'daemonize yes'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - redis
+
+- name: Directory Exists | /data/database/redis
+  file:
+    state: directory
+    path: /data/database/redis
+    owner: redis
+    group: redis
+    mode: 0774
+  tags:
+    - directory-structure
+    - storage-location
+    - redis
+
+- name: Configure | redis-server | working directory
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *dir '
+    line: 'dir /data/database/redis'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - storage-location
+    - redis
+
+- name: Directory Exists | /var/run/redis
+  file:
+    state: directory
+    path: /var/run/redis
+    owner: redis
+    group: wcmetrics
+    mode: 0775
+  tags:
+    - directory-structure
+    - runtime-data
+    - redis
+
+- name: Configure | redis-server | unix socket
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *unixsocket '
+    line: 'unixsocket /var/run/redis/redis-server.sock'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - runtime-data
+    - unix-socket
+    - redis
+
+- name: Configure | redis-server | bind to 0.0.0.0
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *bind '
+    line: 'bind 0.0.0.0'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - networking
+    - interface-binding
+    - redis
+  when: redis_server_accepts_external_connections

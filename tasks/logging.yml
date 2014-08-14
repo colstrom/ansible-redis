@@ -1,0 +1,36 @@
+---
+- name: Directory Exists | /data/log/redis
+  file:
+    state: directory
+    path: /data/log/redis
+    owner: root
+    group: wcmetrics
+    mode: 0775
+  tags:
+    - directory-structure
+    - logging
+    - redis
+
+- name: Configure | redis-server | logfile
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *logfile '
+    line: 'logfile /data/log/redis/redis-server.log'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - logging
+    - redis
+
+- name: Upload Config | beaver | redis-server
+  template:
+    src: etc/beaver/conf.d/redis-server
+    dest: /etc/beaver/conf.d/redis-server
+  tags:
+    - configuration
+    - template-configuration
+    - logging
+    - using-beaver
+    - redis

@@ -1,0 +1,23 @@
+---
+- name: Install Packages | apt | redis-tools
+  apt:
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - redis-tools
+  when: redis_client
+
+- name: Install Packages | apt | redis-server
+  apt:
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - redis-server
+  when: redis_server
+
+- name: Link Exists | /usr/local/bin/redis-sentinel
+  file:
+    state: link
+    src: /usr/bin/redis-server
+    dest: /usr/local/bin/redis-sentinel
+  when: redis_server
