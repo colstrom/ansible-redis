@@ -1,7 +1,6 @@
 ---
 - include: repositories.yml
-- include: packages.yml
+- include: install.yml
 - { include: monitoring.yml, when: redis_server }
 - { include: config.yml,     when: redis_server }
 - { include: logging.yml,    when: redis_server }
-- { include: services.yml,   when: redis_server }

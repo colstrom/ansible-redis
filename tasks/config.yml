@@ -21,12 +21,12 @@
     - precise-configuration
     - redis
 
-- name: Directory Exists | /data/database/redis
+- name: "Directory Exists | {{ redis_server_working_directory }}"
   file:
     state: directory
-    path: /data/database/redis
-    owner: redis
-    group: redis
+    path: "{{ redis_server_working_directory }}"
+    owner: "{{ redis_user }}"
+    group: wcadmin
     mode: 0774
   tags:
     - directory-structure
@@ -38,7 +38,7 @@
     state: present
     dest: /etc/redis/redis.conf
     regexp: '^#* *dir '
-    line: 'dir /data/database/redis'
+    line: "dir {{ redis_server_working_directory }}"
   notify: Reload Service | redis-server
   tags:
     - configuration
@@ -46,24 +46,12 @@
     - storage-location
     - redis
 
-- name: Directory Exists | /var/run/redis
-  file:
-    state: directory
-    path: /var/run/redis
-    owner: redis
-    group: wcmetrics
-    mode: 0775
-  tags:
-    - directory-structure
-    - runtime-data
-    - redis
-
 - name: Configure | redis-server | unix socket
   lineinfile:
     state: present
     dest: /etc/redis/redis.conf
     regexp: '^#* *unixsocket '
-    line: 'unixsocket /var/run/redis/redis-server.sock'
+    line: "unixsocket {{ redis_server_socket_path }}"
   notify: Reload Service | redis-server
   tags:
     - configuration

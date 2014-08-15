@@ -1,4 +1,20 @@
 ---
+redis_client: no
+
 redis_server: no
 redis_server_accepts_external_connections: no
-redis_client: no
+redis_sentinel_enabled: no
+
+redis_user: redis
+
+redis_server_working_directory: /data/redis
+redis_sentinel_working_directory: /tmp
+
+redis_runtime_data_root: /var/run/redis
+redis_server_pidfile_path: "{{ redis_runtime_data_root }}/server.pid"
+redis_server_socket_path: "{{ redis_runtime_data_root }}/server.sock"
+redis_sentinel_pidfile_path: "{{ redis_runtime_data_root }}/sentinel.pid"
+redis_sentinel_socket_path: "{{ redis_runtime_data_root }}/sentinel.sock"
+
+redis_log_root: /data/log/redis
+redis_server_log_path: "{{ redis_log_root }}/server.log"

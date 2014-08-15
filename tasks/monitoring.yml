@@ -1,4 +1,16 @@
 ---
+- name: "Directory Exists | {{ redis_runtime_data_root }}"
+  file:
+    state: directory
+    path: "{{ redis_runtime_data_root }}"
+    owner: "{{ redis_user }}"
+    group: wcadmin
+    mode: 0775
+  tags:
+    - directory-structure
+    - runtime-data
+    - redis
+
 - name: Upload Config | monit | redis-server
   template:
     src: etc/monit/conf.d/redis-server
@@ -13,7 +25,7 @@
     state: present
     dest: /etc/redis/redis.conf
     regexp: '^#* *pidfile '
-    line: 'pidfile /var/run/redis/redis-server.pid'
+    line: "pidfile {{ redis_server_pidfile_path }}"
   notify: Reload Service | redis-server
 
 - name: Confirm Monitoring | redis-server

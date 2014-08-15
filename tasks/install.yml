@@ -20,4 +20,4 @@
     state: link
     src: /usr/bin/redis-server
     dest: /usr/local/bin/redis-sentinel
-  when: redis_server
+  when: redis_sentinel_enabled
