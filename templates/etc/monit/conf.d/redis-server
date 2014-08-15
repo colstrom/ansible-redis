@@ -1,4 +1,4 @@
-check process redis-server with pidfile {{ redis_pidfile_path }}
+check process redis-server with pidfile {{ redis_server_pidfile_path }}
   start program "/usr/bin/redis-server /etc/redis/redis.conf"
   stop program "/usr/bin/redis-cli shutdown"
   if 5 restarts within 5 cycles then timeout
