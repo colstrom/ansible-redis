@@ -11,6 +11,18 @@
     - logging
     - redis
 
+- name: "Correct Permissions | {{ redis_server_log_path }}"
+  file:
+    state: touch
+    path: "{{ redis_server_log_path }}"
+    owner: "{{ redis_user }}"
+    group: wcadmin
+    mode: 0664
+  tags:
+    - permissions
+    - logging
+    - redis
+
 - name: Configure | redis-server | logfile
   lineinfile:
     state: present
