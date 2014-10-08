@@ -27,8 +27,3 @@
     regexp: '^#* *pidfile '
     line: "pidfile {{ redis_server_pidfile_path }}"
   notify: Reload Service | redis-server
-
-- name: Confirm Monitoring | redis-server
-  monit:
-    state: present
-    name: redis-server
