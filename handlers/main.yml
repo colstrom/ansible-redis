@@ -7,5 +7,5 @@
     state: restarted
     name: redis-server
   tags:
-    - monit
+    - using-monit
     - disruptive
