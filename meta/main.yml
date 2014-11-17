@@ -6,3 +6,6 @@ dependencies:
   - role: meta/monitor
     monitor_name: redis
     monitor_pidfile: "{{ redis_pidfile_path }}"
+    monitor_start_command: /usr/bin/redis-server /etc/redis/redis.conf
+    monitor_stop_command: /usr/bin/redis-cli shutdown
+
