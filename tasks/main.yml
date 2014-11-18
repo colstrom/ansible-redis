@@ -1,5 +1,5 @@
 ---
 - include: install.yml
 - { include: monitoring.yml, when: redis_server }
-- { include: config.yml,     when: redis_server }
+- { include: configure.yml,  when: redis_server }
 - { include: logging.yml,    when: redis_server }
