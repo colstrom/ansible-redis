@@ -9,3 +9,8 @@ dependencies:
     monitor_start_command: /usr/bin/redis-server /etc/redis/redis.conf
     monitor_stop_command: /usr/bin/redis-cli shutdown
 
+  - role: meta/logging
+    logging_name: redis-server 
+    logging_files:
+      - tags: 'service'
+        path: "{{ redis_server_log_path }}"

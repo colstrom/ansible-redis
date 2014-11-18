@@ -1,3 +1,0 @@
-[{{ redis_server_log_path }}]
-type: redis-server
-tags: service
