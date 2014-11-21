@@ -1,4 +1,16 @@
 ---
+- name: "Directory Exists | {{ redis_log_root }}"
+  file:
+    state: directory
+    path: "{{ redis_log_root }}"
+    owner: "{{ redis_user }}"
+    group: wcadmin
+    mode: 0775
+  tags:
+    - directory-structure
+    - logging
+    - redis
+
 - name: "Correct Permissions | {{ redis_server_log_path }}"
   file:
     state: touch
