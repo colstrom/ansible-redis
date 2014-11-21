@@ -15,6 +15,7 @@ dependencies:
     logging_name: redis-server
     logging_user: "{{ redis_user }}"
     logging_files:
-      - tags: 'service'
+      - tags:
+          - service
         path: "{{ redis_server_log_path }}"
     when: redis-server
