@@ -4,6 +4,7 @@ dependencies:
     repository_key: '0xb9316a7bc7917b12'
     repository_url: 'deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu trusty main'
   - role: meta/monitor
+    when: redis_server
     monitor_name: redis
     monitor_pidfile: "{{ redis_server_pidfile_path }}"
     monitor_start_command: /usr/bin/redis-server /etc/redis/redis.conf
