@@ -4,7 +4,7 @@
     state: directory
     path: "{{ redis_log_root }}"
     owner: "{{ redis_user }}"
-    group: wcadmin
+    group: wcdevelop
     mode: 0775
   tags:
     - directory-structure
@@ -16,7 +16,7 @@
     state: touch
     path: "{{ redis_server_log_path }}"
     owner: "{{ redis_user }}"
-    group: wcadmin
+    group: wcdevelop
     mode: 0664
   tags:
     - permissions
