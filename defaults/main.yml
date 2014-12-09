@@ -6,6 +6,7 @@ redis_server_accepts_external_connections: no
 redis_sentinel_enabled: no
 
 redis_user: redis
+redis_group: redis
 
 redis_server_working_directory: /data/redis
 redis_sentinel_working_directory: /tmp
