@@ -12,9 +12,6 @@ dependencies:
     upstart_log_root: "{{ redis_log_root }}"
     upstart_name: redis-server
     upstart_pidfile_path: "{{ redis_server_pidfile_path }}"
-    upstart_pre_start:
-      - "mkdir -p {{ redis_server_pidfile_path }}"
-      - "chown {{ redis_user }}:{{ redis_group }} {{ redis_server_pidfile_path }}"
     upstart_runtime_root: "{{ redis_runtime_root }}"
     upstart_user: "{{ redis_user }}"
 
