@@ -9,17 +9,17 @@
     - fetch-configuration
     - redis
 
-# - name: Configure | redis-server | daemonize
-#   lineinfile:
-#     state: present
-#     dest: /etc/redis/redis.conf
-#     regexp: '^#* *daemonize '
-#     line: 'daemonize yes'
-#   notify: Reload Service | redis-server
-#   tags:
-#     - configuration
-#     - precise-configuration
-#     - redis
+- name: Configure | redis-server | daemonize
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *daemonize '
+    line: 'daemonize no'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - redis
 
 - name: "Directory Exists | {{ redis_server_working_directory }}"
   file:
