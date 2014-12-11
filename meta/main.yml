@@ -7,7 +7,9 @@ dependencies:
   - role: package/upstart
     when: redis_server
     upstart_description: 'redis server'
-    upstart_exec: '/usr/bin/redis-server -- /etc/redis/redis.conf'
+    upstart_exec_path: /usr/bin/redis-server
+    upstart_exec_flags:
+      - /etc/redis/redis.conf
     upstart_group: "{{ redis_group }}"
     upstart_log_root: "{{ redis_log_root }}"
     upstart_name: redis-server
