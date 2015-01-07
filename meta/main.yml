@@ -22,7 +22,7 @@ dependencies:
     monitor_name: redis-server
     monitor_pidfile: "{{ redis_server_pidfile_path }}"
 
-  - role: meta/logging
+  - role: meta/log-aggregator
     when: redis_server
     logging_name: redis-server 
     logging_files:
