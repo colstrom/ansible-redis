@@ -23,7 +23,7 @@ dependencies:
     monitor_pidfile: "{{ redis_server_pidfile_path }}"
 
 # New logging method awaiting redis regex formatting
-#   - role: packages/fluentd
+#   - role: package/fluentd
 #     fluentd_sources:
 #       - path: "{{ redis_server_log_path }}"
 #         format: ''
