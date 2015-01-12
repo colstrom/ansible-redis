@@ -9,6 +9,16 @@
     - fetch-configuration
     - redis
 
+- name: Download Config | redis-sentinel
+  get_url:
+    url: 'http://download.redis.io/redis-stable/sentinel.conf'
+    dest: /etc/redis/redis-sentinel.conf
+  tags:
+    - assumes-trust
+    - configuration
+    - fetch-configuration
+    - redis-sentinel
+
 - name: Configure | redis-server | daemonize
   lineinfile:
     state: present
@@ -74,3 +84,58 @@
     - interface-binding
     - redis
   when: redis_server_accepts_external_connections
+
+- name: Configure | redis-sentinel | daemonize
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis-sentinel.conf
+    regexp: '^#* *daemonize '
+    line: 'daemonize no'
+  notify: Reload Service | redis-sentinel
+  tags:
+    - configuration
+    - precise-configuration
+    - redis-sentinel
+
+- name: Configure | redis-sentinel | unix socket
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis-sentinel.conf
+    regexp: '^#* *unixsocket '
+    line: "unixsocket {{ redis_server_socket_path }}"
+  notify: Reload Service | redis-sentinel
+  tags:
+    - configuration
+    - precise-configuration
+    - runtime-data
+    - unix-socket
+    - redis-sentinel
+
+- name: Configure | redis-sentinel | bind to 0.0.0.0
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis-sentinel.conf
+    regexp: '^#* *bind '
+    line: 'bind 0.0.0.0'
+  notify: Reload Service | redis-sentinel
+  tags:
+    - configuration
+    - precise-configuration
+    - networking
+    - interface-binding
+    - redis-sentinel 
+  when: redis_sentinel_accepts_external_connections
+
+- name: Configure | redis-sentinel | monitor master
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis-sentinel.conf
+    regexp: '[^# ]sentinel monitor'
+    line: "sentinel monitor {{ redis_master_name }} {{ redis_master_host }} {{ redis_sentinel_quorum }}"
+  notify: Reload Service | redis-sentinel
+  tags:
+    - configuration
+    - precise-configuration
+    - monitoring-master
+    - redis-sentinel
+
