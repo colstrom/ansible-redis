@@ -3,6 +3,7 @@ redis_client: no
 
 redis_server: no
 redis_server_accepts_external_connections: yes
+redis_sentinel_accepts_external_connections: yes
 redis_sentinel_enabled: no
 
 redis_user: redis
@@ -19,3 +20,7 @@ redis_sentinel_socket_path: "{{ redis_runtime_root }}/sentinel.sock"
 
 redis_log_root: "{{ log_root }}/redis"
 redis_server_log_path: "{{ redis_log_root }}/server.log"
+
+redis_master_host: "127.0.0.1"
+redis_sentinel_quorum: 2
+
