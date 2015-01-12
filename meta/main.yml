@@ -22,6 +22,24 @@ dependencies:
     monitor_name: redis-server
     monitor_pidfile: "{{ redis_server_pidfile_path }}"
 
+  - role: package/upstart
+    when: redis_sentinel_enabled
+    upstart_description: 'redis sentinel'
+    upstart_exec_path: /usr/bin/redis-sentinel
+    upstart_exec_flags:
+      - /etc/redis/redis-sentinel.conf
+    upstart_group: "{{ redis_group }}"
+    upstart_log_root: "{{ redis_log_root }}"
+    upstart_name: redis-sentinel
+    upstart_pidfile_path: "{{ redis_sentinel_pidfile_path }}"
+    upstart_runtime_root: "{{ redis_runtime_root }}"
+    upstart_user: "{{ redis_user }}"
+
+  - role: meta/monitor
+    when: redis_sentinel_enabled
+    monitor_name: redis-sentinel
+    monitor_pidfile: "{{ redis_sentinel_pidfile_path }}"
+
 # New logging method awaiting redis regex formatting
 #   - role: package/fluentd
 #     fluentd_sources:
