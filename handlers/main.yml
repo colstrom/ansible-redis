@@ -9,3 +9,11 @@
   tags:
     - using-monit
     - disruptive
+
+- name: Reload Service | redis-sentinel
+  monit:
+    state: restarted
+    name: redis-sentinel
+  tags:
+    - using-monit
+    - disruptive
