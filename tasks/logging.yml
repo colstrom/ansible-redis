@@ -23,6 +23,18 @@
     - logging
     - redis
 
+- name: "Correct Permissions | {{ redis_sentinel_log_path }}"
+  file:
+    state: touch
+    path: "{{ redis_server_log_path }}"
+    owner: "{{ redis_user }}"
+    group: wcdevelop
+    mode: 0664
+  tags:
+    - permissions
+    - logging
+    - redis
+
 - name: Configure | redis-server | logfile
   lineinfile:
     state: present
