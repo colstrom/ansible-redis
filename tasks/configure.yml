@@ -56,6 +56,20 @@
     - storage-location
     - redis
 
+- name: Configure | redis-server | slave
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis.conf
+    regexp: '^#* *slaveof '
+    line: 'slaveof {{ redis_master_host }} 6379'
+  notify: Reload Service | redis-server
+  tags:
+    - configuration
+    - precise-configuration
+    - redis
+    - redis-slave
+  when: redis_slave
+
 - name: Configure | redis-server | unix socket
   lineinfile:
     state: present
