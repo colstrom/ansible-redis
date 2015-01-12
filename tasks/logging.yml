@@ -26,14 +26,14 @@
 - name: "Correct Permissions | {{ redis_sentinel_log_path }}"
   file:
     state: touch
-    path: "{{ redis_server_log_path }}"
+    path: "{{ redis_sentinel_log_path }}"
     owner: "{{ redis_user }}"
     group: wcdevelop
     mode: 0664
   tags:
     - permissions
     - logging
-    - redis
+    - redis-sentinel
 
 - name: Configure | redis-server | logfile
   lineinfile:
@@ -47,3 +47,16 @@
     - precise-configuration
     - logging
     - redis
+
+- name: Configure | redis-sentinel | logfile
+  lineinfile:
+    state: present
+    dest: /etc/redis/redis-sentinel.conf
+    line: "logfile {{ redis_sentinel_log_path }}"
+    insert_after: EOF
+  notify: Reload Service | redis-sentinel
+  tags:
+    - configuration
+    - precise-configuration
+    - logging
+    - redis-sentinel
