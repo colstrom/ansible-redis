@@ -18,3 +18,12 @@
     regexp: '^#* *pidfile '
     line: "pidfile {{ redis_server_pidfile_path }}"
   notify: Reload Service | redis-server
+
+- name: Configure | redis-sentinel | pidfile
+  lineinfile:
+      state: present
+      dest: /etc/redis/redis-sentinel.conf
+      line: "pidfile {{ redis_sentinel_pidfile_path }}"
+      insert_after: EOF
+    notify: Reload Service | redis-server
+
