@@ -24,6 +24,7 @@
     state: present
     dest: /etc/redis/redis-sentinel.conf
     line: "pidfile {{ redis_sentinel_pidfile_path }}"
-    insert_after: EOF
+    insertafter: EOF
   notify: Reload Service | redis-sentinel
+  when: redis_sentinel_enabled
 
