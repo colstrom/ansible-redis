@@ -54,7 +54,7 @@
     state: present
     dest: /etc/redis/redis-sentinel.conf
     line: "logfile {{ redis_sentinel_log_path }}"
-    insert_after: EOF
+    insertafter: EOF
   notify: Reload Service | redis-sentinel
   tags:
     - configuration
