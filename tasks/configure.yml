@@ -142,6 +142,7 @@
     - interface-binding
     - redis-sentinel 
   when: redis_sentinel_accepts_external_connections
+  when: redis_sentinel_enabled
 
 - name: Configure | redis-sentinel | monitor master
   lineinfile:
