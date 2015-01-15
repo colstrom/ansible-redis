@@ -62,7 +62,7 @@
     state: present
     dest: /etc/redis/redis.conf
     regexp: '^#* *slaveof '
-    line: 'slaveof {{ redis_master_host }} 6379'
+    line: 'slaveof {{ redis_master_host }} {{ redis_master_port }}'
   notify: Reload Service | redis-server
   tags:
     - configuration
@@ -149,7 +149,7 @@
     state: present
     dest: /etc/redis/redis-sentinel.conf
     regexp: '[^# ]sentinel monitor'
-    line: "sentinel monitor {{ redis_master_name }} {{ redis_master_host }} {{ redis_sentinel_quorum }}"
+    line: "sentinel monitor {{ redis_master_name }} {{ redis_master_host }} {{ redis_master_port }} {{ redis_sentinel_quorum }}"
   notify: Reload Service | redis-sentinel
   tags:
     - configuration
