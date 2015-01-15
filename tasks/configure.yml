@@ -18,6 +18,7 @@
     - configuration
     - fetch-configuration
     - redis-sentinel
+  when: redis_sentinel_enabled
 
 - name: Configure | redis-server | daemonize
   lineinfile:
@@ -110,6 +111,7 @@
     - configuration
     - precise-configuration
     - redis-sentinel
+  when: redis_sentinel_enabled
 
 - name: Configure | redis-sentinel | unix socket
   lineinfile:
@@ -124,6 +126,7 @@
     - runtime-data
     - unix-socket
     - redis-sentinel
+  when: redis_sentinel_enabled
 
 - name: Configure | redis-sentinel | bind to 0.0.0.0
   lineinfile:
@@ -152,4 +155,5 @@
     - precise-configuration
     - monitoring-master
     - redis-sentinel
+  when: redis_sentinel_enabled
 

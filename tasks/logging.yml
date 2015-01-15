@@ -34,6 +34,7 @@
     - permissions
     - logging
     - redis-sentinel
+  when: redis_sentinel_enabled
 
 - name: Configure | redis-server | logfile
   lineinfile:
@@ -60,3 +61,4 @@
     - precise-configuration
     - logging
     - redis-sentinel
+  when: redis_sentinel_enabled

@@ -26,4 +26,5 @@
     line: "pidfile {{ redis_sentinel_pidfile_path }}"
     insert_after: EOF
   notify: Reload Service | redis-sentinel
+  when: redis_sentinel_enabled
 
