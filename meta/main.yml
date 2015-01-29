@@ -40,9 +40,8 @@ dependencies:
     monitor_name: redis-sentinel
     monitor_pidfile: "{{ redis_sentinel_pidfile_path }}"
 
-# New logging method awaiting redis regex formatting
-#   - role: package/fluentd
-#     fluentd_sources:
-#       - path: "{{ redis_server_log_path }}"
-#         format: ''
-#         tag: redis-server.service
+  - role: package/fluentd
+    fluentd_sources:
+      - path: "{{ redis_server_log_path }}"
+        format: '^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)'
+        tag: redis-server.service
