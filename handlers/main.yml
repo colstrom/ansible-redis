@@ -1,18 +1,15 @@
 ---
-- name: Reload Service | monit
-  command: monit reload
-
 - name: Reload Service | redis-server
-  monit:
-    state: restarted
+  service:
+    state: reloaded
     name: redis-server
   tags:
     - using-monit
     - disruptive
 
 - name: Reload Service | redis-sentinel
-  monit:
-    state: restarted
+  service:
+    state: reloaded
     name: redis-sentinel
   tags:
     - using-monit
