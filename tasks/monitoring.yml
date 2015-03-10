@@ -27,4 +27,3 @@
     insertafter: EOF
   notify: Reload Service | redis-sentinel
   when: redis_sentinel_enabled
-
