@@ -140,7 +140,7 @@
     - precise-configuration
     - networking
     - interface-binding
-    - redis-sentinel 
+    - redis-sentinel
   when: redis_sentinel_accepts_external_connections
   when: redis_sentinel_enabled
 
