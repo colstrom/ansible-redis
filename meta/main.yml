@@ -1,10 +1,9 @@
 ---
 dependencies:
-  - role: meta/repository
-    repository_key: '0xb9316a7bc7917b12'
-    repository_url: 'deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu trusty main'
-
-  - role: package/upstart
+  - role: colstrom.apt-repository
+    repository_key: "0xb9316a7bc7917b12"
+    repository_url: "deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu {{ ansible_distribution_release }} main"
+  - role: colstrom.upstart
     when: redis_server
     upstart_description: 'redis server'
     upstart_exec_path: /usr/bin/redis-server
@@ -16,13 +15,7 @@ dependencies:
     upstart_pidfile_path: "{{ redis_server_pidfile_path }}"
     upstart_runtime_root: "{{ redis_runtime_root }}"
     upstart_user: "{{ redis_user }}"
-
-  - role: meta/monitor
-    when: redis_server
-    monitor_name: redis-server
-    monitor_pidfile: "{{ redis_server_pidfile_path }}"
-
-  - role: package/upstart
+  - role: colstrom.upstart
     when: redis_sentinel_enabled
     upstart_name: redis-sentinel
     upstart_description: 'redis sentinel'
@@ -34,13 +27,7 @@ dependencies:
     upstart_pidfile_path: "{{ redis_sentinel_pidfile_path }}"
     upstart_runtime_root: "{{ redis_runtime_root }}"
     upstart_user: "{{ redis_user }}"
-
-  - role: meta/monitor
-    when: redis_sentinel_enabled
-    monitor_name: redis-sentinel
-    monitor_pidfile: "{{ redis_sentinel_pidfile_path }}"
-
-  - role: package/fluentd
+  - role: colstrom.fluentd
     fluentd_sources:
       - path: "{{ redis_server_log_path }}"
         format: '^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)'
