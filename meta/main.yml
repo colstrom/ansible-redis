@@ -45,3 +45,18 @@ dependencies:
       - path: "{{ redis_server_log_path }}"
         format: '^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)'
         tag: redis-server.service
+galaxy_info:
+  author: "Chris Olstrom"
+  categories:
+    - database:nosql
+  company: "TELUS digital"
+  description: "Redis is an open source, BSD licensed, advanced key-value cache and store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets, sorted sets, bitmaps and hyperloglogs."
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+    - name: Ubuntu
+      versions:
+        - lucid
+        - precise
+        - trusty
+        - utopic
