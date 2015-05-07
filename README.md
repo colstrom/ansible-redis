@@ -31,13 +31,13 @@ Tunables
 
 Dependencies
 ------------
-* [colstrom.apt-repository](https://github.com/colstrom/ansible-apt-repository/)
+* [telusdigital.apt-repository](https://github.com/telusdigital/ansible-apt-repository/)
 
 Example Playbook
 ----------------
     - hosts: servers
       roles:
-         - role: colstrom.redis
+         - role: telusdigital.redis
            redis_server: yes
 
 License
