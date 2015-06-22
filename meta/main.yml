@@ -30,7 +30,7 @@ dependencies:
   - role: telusdigital.fluentd
     fluentd_sources:
       - path: "{{ redis_server_log_path }}"
-        format: '^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)'
+        format: '/^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)/'
         tag: redis-server.service
 galaxy_info:
   author: "Chris Olstrom"
