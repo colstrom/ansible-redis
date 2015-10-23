@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - role: telusdigital.apt-repository
+      repository_key: "0xb9316a7bc7917b12"
+      repository_url: "deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu {{ ansible_distribution_release }} main"
+    - role: telusdigital.upstart
+      when: redis_server
+      upstart_description: 'redis server'
+      upstart_exec_path: /usr/bin/redis-server
+      upstart_exec_flags:
+        - /etc/redis/redis.conf
+      upstart_group: "{{ redis_group }}"
+      upstart_log_root: "{{ redis_log_root }}"
+      upstart_name: redis-server
+      upstart_pidfile_path: "{{ redis_server_pidfile_path }}"
+      upstart_runtime_root: "{{ redis_runtime_root }}"
+      upstart_user: "{{ redis_user }}"
+    - role: telusdigital.upstart
+      when: redis_sentinel_enabled
+      upstart_name: redis-sentinel
+      upstart_description: 'redis sentinel'
+      upstart_exec_path: /usr/bin/redis-sentinel
+      upstart_exec_flags:
+        - /etc/redis/redis-sentinel.conf
+      upstart_group: "{{ redis_group }}"
+      upstart_log_root: "{{ redis_log_root }}"
+      upstart_pidfile_path: "{{ redis_sentinel_pidfile_path }}"
+      upstart_runtime_root: "{{ redis_runtime_root }}"
+      upstart_user: "{{ redis_user }}"
+    - role: telusdigital.fluentd
+      fluentd_config_name: redis
+      fluentd_sources:
+        - path: "{{ redis_server_log_path }}"
+          format: '/^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)/'
+          tag: redis-server.service
+      fluentd_plugins:
+        - elasticsearch
+    - role: ansible-redis
+      redis_client: yes
+      redis_server: yes

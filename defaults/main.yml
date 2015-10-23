@@ -1,4 +1,7 @@
 ---
+redis_user: redis
+redis_group: redis
+
 redis_client: no
 
 redis_server: no
@@ -6,10 +9,6 @@ redis_slave: no
 redis_server_accepts_external_connections: yes
 redis_sentinel_accepts_external_connections: yes
 redis_sentinel_enabled: no
-
-
-redis_user: redis
-redis_group: redis
 
 redis_server_working_directory: /data/redis
 redis_sentinel_working_directory: /tmp

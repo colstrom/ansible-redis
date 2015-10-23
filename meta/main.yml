@@ -27,14 +27,14 @@ dependencies:
     upstart_pidfile_path: "{{ redis_sentinel_pidfile_path }}"
     upstart_runtime_root: "{{ redis_runtime_root }}"
     upstart_user: "{{ redis_user }}"
-  # - role: telusdigital.fluentd
-  #   fluentd_config_name: redis
-  #   fluentd_sources:
-  #     - path: "{{ redis_server_log_path }}"
-  #       format: '/^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)/'
-  #       tag: redis-server.service
-  #   fluentd_plugins:
-  #     - elasticsearch
+  - role: telusdigital.fluentd
+    fluentd_config_name: redis
+    fluentd_sources:
+      - path: "{{ redis_server_log_path }}"
+        format: '/^\[(?<process_id>[^]]*)\] (?<date_time>(?<date>\d+\s\w{3}) (?<time>[\d\:*]{8}\.\d*))\ - (?<message>.*)/'
+        tag: redis-server.service
+    fluentd_plugins:
+      - elasticsearch
 galaxy_info:
   author: "Chris Olstrom"
   categories:
