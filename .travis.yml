@@ -28,3 +28,8 @@ script:
 
   # check idempotence
   - "ansible-playbook -i tests/inventory tests/$PLAYBOOK --connection=local --sudo"
+
+  # make sure redis can be started and stoped easily
+  - sudo service redis-server status
+  - sudo service redis-server stop
+  - sudo service redis-server start

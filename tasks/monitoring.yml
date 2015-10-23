@@ -4,7 +4,7 @@
     state: directory
     path: "{{ redis_runtime_root }}"
     owner: "{{ redis_user }}"
-    group: wcadmin
+    group: "{{ redis_group }}"
     mode: 0775
   tags:
     - directory-structure
