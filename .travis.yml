@@ -1,0 +1,35 @@
+---
+sudo: required
+dist: trusty
+language: generic
+
+env:
+  - PLAYBOOK=test.yml
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # install ansible
+  - sudo pip install ansible
+
+  # configure ansible
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+  # install dependencies
+  - ansible-galaxy install telusdigital.upstart telusdigital.fluentd telusdigital.apt-repository
+
+script:
+  # check syntax
+  - "ansible-playbook -i tests/inventory tests/$PLAYBOOK --syntax-check"
+
+  # initial run
+  - "ansible-playbook -i tests/inventory tests/$PLAYBOOK --connection=local --sudo"
+
+  # check idempotence
+  - "ansible-playbook -i tests/inventory tests/$PLAYBOOK --connection=local --sudo"
+
+  # make sure redis can be started and stoped easily
+  - sudo service redis-server status
+  - sudo service redis-server stop
+  - sudo service redis-server start
