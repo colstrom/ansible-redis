@@ -16,8 +16,8 @@ install:
   # configure ansible
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
-  # install dependencies from meta/main.yml
-  - "read dependencies < <(cat meta/main.yml  | grep 'role:' | awk '{print $3}' | tr '\n' ' '); ansible-galaxy install $dependencies"
+  # install dependencies
+  - ansible-galaxy install telusdigital.upstart telusdigital.fluentd telusdigital.apt-repository
 
 script:
   # check syntax
