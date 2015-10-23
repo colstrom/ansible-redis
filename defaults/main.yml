@@ -27,4 +27,3 @@ redis_master_host: "127.0.0.1"
 redis_master_port: 6379
 redis_master_name: "mymaster"
 redis_sentinel_quorum: 2
-
