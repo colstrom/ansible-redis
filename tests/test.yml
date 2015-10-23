@@ -39,4 +39,3 @@
         - elasticsearch
     - role: ansible-redis
       redis_client: yes
-      redis_server: yes
