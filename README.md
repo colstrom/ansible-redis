@@ -2,7 +2,7 @@
 
 [Redis](http://redis.io/) - An open source, BSD licensed, advanced key-value cache and store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets, sorted sets, bitmaps and hyperloglogs.
 
-[![Build Status](https://travis-ci.org/telusdigital/ansible-redis.svg?branch=master)](https://travis-ci.org/telusdigital/ansible-redis)
+[![Build Status](https://travis-ci.org/colstrom/ansible-redis.svg?branch=master)](https://travis-ci.org/colstrom/ansible-redis)
 [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
 Tunables
@@ -32,13 +32,13 @@ Tunables
 
 Dependencies
 ------------
-* [telusdigital.apt-repository](https://github.com/telusdigital/ansible-apt-repository/)
+* [colstrom.apt-repository](https://github.com/colstrom/ansible-apt-repository/)
 
 Example Playbook
 ----------------
     - hosts: servers
       roles:
-         - role: telusdigital.redis
+         - role: colstrom.redis
            redis_server: yes
 
 License
